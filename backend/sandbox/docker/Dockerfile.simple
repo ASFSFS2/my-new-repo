@@ -1,0 +1,28 @@
+# Простой Docker образ для тестирования Neo AI
+FROM python:3.11-slim
+
+# Установка базовых пакетов
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    vim \
+    nano \
+    && rm -rf /var/lib/apt/lists/*
+
+# Создание рабочей директории
+WORKDIR /workspace
+
+# Установка Python пакетов
+RUN pip install --no-cache-dir \
+    requests \
+    beautifulsoup4 \
+    pandas \
+    numpy
+
+# Создание пользователя
+RUN useradd -m -s /bin/bash neo
+USER neo
+
+# Команда по умолчанию
+CMD ["/bin/bash"]

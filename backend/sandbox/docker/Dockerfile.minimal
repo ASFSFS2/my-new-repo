@@ -1,0 +1,19 @@
+# Минимальный Docker образ для тестирования Neo AI
+FROM ubuntu:22.04
+
+# Установка только самого необходимого
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Создание рабочей директории
+WORKDIR /workspace
+
+# Создание пользователя
+RUN useradd -m -s /bin/bash neo
+USER neo
+
+# Команда по умолчанию
+CMD ["/bin/bash"]
